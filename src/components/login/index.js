@@ -1,5 +1,3 @@
-import appMain from '../../app.js'
-
 
 export default class Login {
 

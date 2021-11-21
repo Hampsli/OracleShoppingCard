@@ -1,12 +1,14 @@
 
 export default class ProductTable {
-    constructor() {
-      this.root = document.getElementById('container')
+    constructor(products) {
+        this.root = document.getElementById('tableSection')
+
     }
 
     renderCart() {
-      console.log('renderForm')
-      this.root.removeChild(this.root.firstChild);
+      if (this.root.hasChildNodes()) {
+            this.root.removeChild(this.root.firstChild);
+          }
       this.root.innerText+= `<table>
       <tr>
         <th colspan="2">
