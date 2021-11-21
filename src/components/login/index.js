@@ -1,4 +1,4 @@
-import renderLogin from './components/login/index.js'
+import appMain from '../../app.js'
 
 
 export default class Login {
@@ -77,7 +77,7 @@ export default class Login {
         const userNameValid = this.validUserName(formLogin.elements['userName']);
         const passwordValid = this.validPassword(formLogin.elements['password'])
         if (userNameValid && passwordValid) {
-            alert('login')
+           return true
         }
     }
 
