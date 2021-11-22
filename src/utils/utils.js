@@ -9,7 +9,6 @@ export const removeAllChilds = (el) => {
 export const getProducts = async() =>{
     let data = await fetch('http://localhost/utils/products.json')
     let products = await data.json();
-    console.log(products)
     return products 
 }
 
