@@ -1,3 +1,160 @@
-body{
-    background: linear-gradient(100deg, rgba(210,143,255,0.8603816526610644) 0%, rgba(224,180,255,1) 35%, rgba(255,255,255,1) 100%);
+@import url(//fonts.googleapis.com/css?family=Open+Sans);
+
+body {
+  background: #e3e2e7;
+  width: 100%;
+  height: 100%;
+  font-family: "Open sans";
+}
+
+#loginSection {
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  max-width: 20rem;
+  min-height: 30rem;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 1px 3px 16px 9px rgba(0, 0, 0, 0.2);
+}
+
+label {
+  top: 20px;
+  left: 12px;
+  font-size: 17px;
+  color: black;
+  font-weight: 500;
+  transform-origin: 0 0;
+  transform: translate3d(0, 0, 0);
+  transition: all 0.2s ease;
+  text-align: start;
+}
+input {
+  appearance: none;
+  width: 100%;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid grey;
+  font-family: inherit;
+  padding: 8px 6px 0 6px;
+  height: 2rem;
+  font-size: 16px;
+  font-weight: 400;
+  background: rgba(white, 0.02);
+  color: black;
+  transition: all 0.15s ease;
+}
+:focus {
+  outline: none;
+}
+::placeholder {
+  font-size: 15px;
+}
+
+a{
+  font-size: 15px;
+  color: #aab0bc;
+  font-weight:'bold';
+  text-decoration: none;
+}
+
+button{
+  appearance: none;
+  padding: 0.75rem 5.25rem;
+  font-family: inherit;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color:white;
+  cursor: pointer;
+  border: none;
+  font-weight:700; 
+  font-size: 15px;
+}
+
+ .btn-login{
+  border-radius: 30px;
+  background:  linear-gradient(100deg, rgba(143,245,255,1) 0%, rgba(224,180,255,1) 50%, rgba(246,104,255,1) 100%);
+  border: 0.1px solid purple;
+} 
+
+.btn-apply{
+background-color: #df7e7b;
+}
+
+ .btn-check{
+  background-color:#1d5dbc ;
+}
+
+small{
+  color: red;
+}
+
+h1{
+  font-weight: 'bold';
+}
+
+hr{
+border-width: 3px;
+}
+
+.inputSection {
+  text-align: start;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.container {
+  width: 100%;
+  padding: 8% 0 0;
+  margin: auto;
+}
+
+.shoppingCart-section{
+  background: white;
+}
+.colSummary{
+  background: #f5f4f9;
+}
+.login-title {
+  text-align: center;
+  margin-top: 1rem;
+}
+.forgot-pass {
+  text-align: right;
+}
+
+.loginFooter{
+  margin-top: 5rem;
+}
+.cartSection{
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  margin: 0 auto 100px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 1px 3px 16px 9px rgba(0, 0, 0, 0.2);
+}
+
+.detailProduct{
+  text-align: left;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.headerCart{
+  justify-content: space-between;
+}
+
+.row {
+  display: flex;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.col {
+  display: block;
+  padding-left: 15px;
+  padding-right: 15px;
 }

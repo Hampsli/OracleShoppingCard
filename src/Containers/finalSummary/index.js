@@ -2,7 +2,7 @@ import {removeAllChilds } from '../../../utils/utils.js'
 
 export default class ShoppingCart {
     constructor(state) {
-      this.root = document.getElementById('container')
+      this.root = document.getElementById('main')
       this.cartState = {
         items: 0,
         total: 0,

@@ -5,7 +5,7 @@ import rendershopping from './Containers/shoppingCart/index.js'
 export default class AppMain {
   constructor(state) {
     this.state = {
-      page: 'login'
+      page: 'shopping'
     }
     this.login = new renderLogin();
     this.shopping = new rendershopping();
@@ -26,15 +26,15 @@ export default class AppMain {
   init() {
     const { page } = this.state;
     if (page === 'login') {
-     this.login.init()
-     const formLogin = document.getElementById('formLogin');
-    formLogin.addEventListener('submit', (event) => {
-      event.preventDefault();
-      let validSubmit = this.login.onSubmitLogin(formLogin);
-       if(validSubmit){
-        this.setState({page:'shopping'})
-      }
-      })
+      this.login.init()
+      const formLogin = document.getElementById('formLogin');
+     formLogin.addEventListener('submit', (event) => {
+       event.preventDefault();
+       let validSubmit = this.login.onSubmitLogin(formLogin);
+        if(validSubmit){
+         this.setState({page:'shopping'})
+       }
+       })
     }
     if(page === 'shopping'){
      this.shopping.init()
