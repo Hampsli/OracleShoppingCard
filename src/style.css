@@ -19,16 +19,29 @@ body {
   box-shadow: 1px 3px 16px 9px rgba(0, 0, 0, 0.2);
 }
 
+.row {
+  display: flex;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.col {
+  display: block;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
 label {
   top: 20px;
   left: 12px;
-  font-size: 17px;
+  font-size: 15px;
   color: black;
   font-weight: 500;
   transform-origin: 0 0;
   transform: translate3d(0, 0, 0);
   transition: all 0.2s ease;
   text-align: start;
+  margin-bottom: 1rem;
 }
 input {
   appearance: none;
@@ -42,7 +55,7 @@ input {
   height: 2rem;
   font-size: 16px;
   font-weight: 400;
-  background: rgba(white, 0.02);
+  background:  white;
   color: black;
   transition: all 0.15s ease;
 }
@@ -53,10 +66,26 @@ input {
   font-size: 15px;
 }
 
+select{
+	width: 100%;
+	cursor: pointer;
+  padding: 8px 6px 0 0;
+  height: 3rem;
+  font-size: 16px;
+  font-weight: 400;
+  outline: 0; 
+  border: 0;
+  background:  white;
+  color: black;
+  font-family: inherit;
+  border-bottom: 1px solid grey;
+  transition: all 0.25s ease;
+}
+
 a{
   font-size: 15px;
   color: #aab0bc;
-  font-weight:'bold';
+  font-weight:bold;
   text-decoration: none;
 }
 
@@ -80,11 +109,26 @@ button{
 } 
 
 .btn-apply{
+  color:white;
 background-color: #df7e7b;
+padding: 0.75rem 2.25rem;
 }
 
  .btn-check{
+  color:white;
   background-color:#1d5dbc ;
+  width: 100%;
+}
+
+.btn-table{
+  margin: 0;
+  padding: 0.95rem 0.95rem;
+  font-size: 25px;
+  font-weight:800; 
+}
+
+.btn-back{
+  color: blue;
 }
 
 small{
@@ -92,11 +136,28 @@ small{
 }
 
 h1{
-  font-weight: 'bold';
+  font-weight: 700;
 }
 
-hr{
-border-width: 3px;
+table{
+  padding-left:15px; 
+  padding-right: 15px;
+}
+
+th{
+  text-align: center;
+  color:#cdcdcd;
+  width: 40rem;
+}
+
+td{
+  width: 40rem;
+  text-align: center;
+}  label{
+
+    padding-right: 1rem;
+    font-size: 17px;
+    font-weight: 700;
 }
 
 .inputSection {
@@ -113,9 +174,13 @@ border-width: 3px;
 
 .shoppingCart-section{
   background: white;
+  padding-left: 4rem;
+  padding-right: 4rem;
 }
 .colSummary{
   background: #f5f4f9;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 .login-title {
   text-align: center;
@@ -133,28 +198,91 @@ border-width: 3px;
   z-index: 1;
   background: #ffffff;
   margin: 0 auto 100px;
-  padding: 2rem;
+  padding-left: 2rem;
   text-align: center;
   box-shadow: 1px 3px 16px 9px rgba(0, 0, 0, 0.2);
+  margin: 4rem;
 }
 
 .detailProduct{
   text-align: left;
-  padding-left: 25px;
-  padding-right: 25px;
+  display: flex;
+  width: 100%;
 }
 
 .headerCart{
   justify-content: space-between;
+  border-bottom: 2px solid #aab0bc;
 }
 
-.row {
+.quantityControls{
   display: flex;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
-.col {
-  display: block;
-  padding-left: 15px;
-  padding-right: 15px;
+
+.inputQuantity{
+  width: 30%;
+  border: 1px solid #aab0bc;
+  text-align: center;
 }
+
+.removeProduct{
+ color:#cdcdcd;
+ padding: 0.95rem 0 ;
+ margin:0;
+ font-size: 10px;
+}
+
+.backButton{
+  text-align: left;
+  display: flex;
+  padding-bottom: 2rem;
+}  .fa-arrow-left{
+  margin-right: 1rem;
+  font-size: 18px;
+  font-weight:bold;
+  text-decoration: none;
+  color: blue;
+}
+
+.titleOrder{
+  text-align: left;
+  border-bottom: 2px solid #aab0bc;
+}
+
+.formContainer{
+  max-width: 25rem;
+  min-width: 25rem;
+} 
+.formContainer  select{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border: 2px solid  white;
+  height: 2.5rem;
+  width: 26rem;
+  border-radius: 2px;
+}
+.formContainer   input{
+  margin-top: 2rem;
+  border: 2px solid  white;
+  height: 2rem;
+  border-radius: 2px;
+}
+
+.subTotalSummary{
+  justify-content: space-between;
+  align-items: center;
+}
+
+.promoSection{
+  text-align: left;
+}
+
+.totalSummary{
+  justify-content: space-between;
+}
+
+
+
