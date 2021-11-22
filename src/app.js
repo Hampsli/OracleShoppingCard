@@ -1,5 +1,5 @@
-import renderLogin from './components/login/index.js'
-import rendershopping from './components/shoppingCart/index.js'
+import renderLogin from './Containers/login/index.js'
+import rendershopping from './Containers/shoppingCart/index.js'
 
 
 export default class AppMain {

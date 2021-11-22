@@ -8,9 +8,6 @@ export default class ShoppingCart {
       this.summary = {
         items: 0,
         total:0,
-        shipping: '',
-        promoCode:'',
-        totalCost: 0
       }
       this.table = new productTable(this.products);
       this.orderSummary = new orderSummary(this.summary);
@@ -71,7 +68,7 @@ export default class ShoppingCart {
 
     init() {
       this.renderCart();
-     // this.renderTable(this.products);
+     this.renderTable(this.products);
       this.renderOrderSummary(this.summary);
     }
 }

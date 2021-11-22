@@ -1,21 +1,21 @@
+import { removeAllChilds } from '../../utils/utils.js';
+import finalSummary from '../finalSummary/index.js';
 
 export default class OrderSummary {
   constructor(summary) {
-    console.log(document)
     this.summaryState = {
       items: 0,
-      total: 0,
+      total: 100,
       shipping: '',
       promoCode: '',
       totalCost: 0
     }
+    this.validDiscount = { code: 'FIRST10', percentDiscount: 10 };
 
-    if (summary) {
-      this.summaryState = Object.assign(this.summaryState, summary);
-    }
   }
 
   setSummary(summary) {
+    console.log(summary !== this.summaryState)
     if (summary !== this.summaryState) {
       this.summaryState = Object.assign(this.summaryState, summary);
       this.render();
@@ -25,7 +25,7 @@ export default class OrderSummary {
   render() {
     this.root = document.getElementById("summarySection")
     if (this.root.hasChildNodes()) {
-      this.root.removeChild(this.root.firstChild);
+      removeAllChilds(this.root);
     }
     this.root.innerHTML += `
     <form  id='formSummary'>
@@ -50,7 +50,7 @@ export default class OrderSummary {
         </div>
         <div>
         <label for='promoInput'>PROMO CODE</label>
-        <input type='text' id='promoInput' name='promoInput'>
+        <input type='text' id='promoInput' name='promoInput' value="${this.summaryState.promoCode}">
         </div>
         <div>
         <button type='button' id='promoAction'>APPLY</button>
@@ -71,42 +71,42 @@ export default class OrderSummary {
         `
   }
 
-  onSubmitCheckout(){
-
+  onSubmitCheckout(summary) {
+    this.finalSummary = new finalSummary(summary);
+    this.finalSummary.init();
   }
 
-  onApplyPromo(){
-
+  onApplyPromo(promoCode) {
+    if (promoCode === this.validDiscount.code) {
+      const discount = this.validDiscount.percentDiscount / 100;
+      const totalWithDiscount = this.summaryState.total - (this.summaryState.total * discount)
+      this.setSummary({ ...this.summaryState, promoCode: promoCode, totalCost: totalWithDiscount })
+    }
   }
 
-  onChangeShipping(){
-
-  }
-
-  handleEvents(){
-    const formSummary = document.getElementById('formSummary'); 
-    const promoButton = document.getElementById('promoAction'); 
-    const inputShipping =  formSummary .elements['shippingSelect'];
+  handleEvents() {
+    const formSummary = document.getElementById('formSummary');
+    const promoButton = document.getElementById('promoAction');
+    const inputShipping = formSummary.elements['shippingSelect'];
+    const inputPromo = formSummary.elements['promoInput'];
     ///events
-   formSummary.onsubmit = (event) =>{
-     console.log(event)
-    alert('did stuff #2'); 
-   }
-   console.log(promoButton)
-   promoButton.onclick = (event)=> { 
-   alert('did stuff #1'); 
-   }
-   inputShipping.onchange=(event)=>{
-
-     alert('change')
-   }
+    promoButton.onclick = () => {
+      const promocode = inputPromo.value.trim();
+      this.onApplyPromo(promocode)
+    }
+    inputShipping.onchange = () => {
+      const shippingValue = inputShipping.value.trim();
+      this.setSummary({ ...this.summaryState, shipping: shippingValue })
+    }
+    formSummary.onsubmit = (event) => {
+      event.preventDefault();
+      this.onSubmitCheckout();
+    }
   }
-  
 
   init() {
     this.render();
     this.handleEvents();
-
   }
 }
 

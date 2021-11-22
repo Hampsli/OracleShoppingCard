@@ -1,7 +1,7 @@
 
 export default class FinalSummary {
 
-    constructor() {
+    constructor(summaryInfo) {
         this.root = document.getElementById('container')
         this.summaryInfo = {
             totalItems: 0,
