@@ -1,5 +1,17 @@
-@import url(//fonts.googleapis.com/css?family=Open+Sans);
-
+/* open-sans-regular - latin 
+source: https://google-webfonts-helper.herokuapp.com/fonts/open-sans?subsets=latin*/
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./utils/fonts/open-sans-v27-latin-regular.eot'); 
+  src: local(''),
+       url('./utils/fonts/open-sans-v27-latin-regular.eot?#iefix') format('embedded-opentype'),
+       url('./utils/fonts/open-sans-v27-latin-regular.woff2') format('woff2'), 
+       url('./utils/fonts/open-sans-v27-latin-regular.woff') format('woff'), 
+       url('./utils/fonts/open-sans-v27-latin-regular.ttf') format('truetype'), 
+       url('./utils/fonts/open-sans-v27-latin-regular.svg#OpenSans') format('svg'); 
+}
 body {
   background: #e3e2e7;
   width: 100%;

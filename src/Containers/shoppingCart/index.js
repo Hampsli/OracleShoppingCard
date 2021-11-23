@@ -3,7 +3,7 @@ import {
   formatOrderProducts, 
   removeAllChilds,
   getSubtotal,
-  getCountItems} from '../../../utils/utils.js'
+  getCountItems} from '../../utils/utils.js'
 import finalSummary from '../finalSummary/index.js';
 
 export default class ShoppingCart {
