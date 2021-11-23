@@ -1,4 +1,9 @@
-import { getProducts, formatOrderProducts, removeAllChilds } from '../../../utils/utils.js'
+import { 
+  getProducts, 
+  formatOrderProducts, 
+  removeAllChilds,
+  getSubtotal,
+  getCountItems} from '../../../utils/utils.js'
 import finalSummary from '../finalSummary/index.js';
 
 export default class ShoppingCart {
@@ -6,21 +11,23 @@ export default class ShoppingCart {
     this.root = document.getElementById('main')
     this.cartState = {
       items: 0,
-      total: 0,
-      shipping: '5',
+      shipping:{
+        value: '5',
+        label: 'Standard delivery - $5.00'
+      } ,
       promoCode: '',
       subtotal:0,
       totalCost: 0,
       productsOriginalOrder: [],
       actualProductsOrder: []
     }
+     this.totalItems=0;
+    this.subtotal=0;
     this.validDiscount = { code: 'FIRST10', percentDiscount: 10 };
   }
 
   async renderCart(actualOrder) {
     this.cartState.productsOriginalOrder = await getProducts();
-    let total;
-    let result;
 
     if (this.root.hasChildNodes()) {
       removeAllChilds(this.root);
@@ -30,9 +37,9 @@ export default class ShoppingCart {
       this.cartState.actualProductsOrder = actualOrder;
     } else {
       this.cartState.actualProductsOrder = formatOrderProducts(this.cartState.productsOriginalOrder)
-      total = this.cartState.actualProductsOrder.reduce((sum, { items }) => sum + items, 0)
-      result = (this.cartState.actualProductsOrder.reduce((sum, { priceTotal }) => sum + priceTotal, 0) + Number(this.cartState.shipping)).toFixed(2);
-      this.setActualState({...this.cartState,items:total,subtotal:result,totalCost:result},false)
+      this.totalItems = getCountItems( this.cartState.actualProductsOrder)
+      this.subtotal = getSubtotal( this.cartState.actualProductsOrder);
+      this.setActualState({...this.cartState,items:this.totalItems,subtotal:this.subtotal.toFixed(2)},true)
     }
     this.root.innerHTML += `  
     <div class="row cartSection">
@@ -93,7 +100,7 @@ export default class ShoppingCart {
           <label for='promoInput'>PROMO CODE</label>
           <input type='text' id='promoInput' name='promoInput' value="${this.cartState.promoCode}">
         </div>
-        <div class=' promoSection'>
+        <div class='promoSection'>
           <button type='button' id='promoAction' class='btn-apply'>APPLY</button>
         </div>
         <hr>
@@ -132,7 +139,7 @@ export default class ShoppingCart {
            <td >
            <div class="quantityControls">
              <button type='button' class='btn-table decreaseProduct' data-origin="${product.id}" name='decreaseProduct'>-</button>
-             <input type="number" class="inputQuantity" id="${'items' + product.id}" name="totalItems" value="${product.items}">
+             <input disabled type="number" class="inputQuantity" id="${'items' + product.id}" name="totalItems" value="${product.items}">
              <button type='button' class='btn-table incrementProduct' data-origin="${product.id}"  name='incrementProduct'>+</button>
              </div>
            </td>
@@ -148,57 +155,43 @@ export default class ShoppingCart {
     this.handleEvents()
   }
 
-  setActualState(state,render) {
+  setActualState(state) {
     if (state !== this.cartState) {
-      this.cartState = Object.assign(this.cartState, state);
-      console.log(render)
-      if(render){
-        this.renderCart(this.cartState.actualProductsOrder)
-      }
+      const totalCost =  Number(state.subtotal) + Number(state.shipping.value);
+      console.log(totalCost)
+      this.cartState = Object.assign(this.cartState, {...state, totalCost: totalCost.toFixed(2)});
+      console.log('toGo',this.cartState )
+      this.renderCart(this.cartState.actualProductsOrder)
     }
   }
 
-  setDecreaseItems(id) {
+  calculateOrderStock(decre,incre,id){
+    let validation
+    let totalItemOrder
     let actualProduct = this.cartState.actualProductsOrder.filter(product => {
       return Number(product.id) === Number(id)
     })[0]
-    if (actualProduct.items > 0) {
-      let totalItems = actualProduct.items - 1
+    if(decre){
+      totalItemOrder = actualProduct.items - 1
+      validation = actualProduct.items > 0
+    }
+    if(incre){
+      totalItemOrder = actualProduct.items + 1
+      validation = actualProduct.items >= 0
+    }
+    if (validation) {
       const newOrder = this.cartState.actualProductsOrder.map((product) => {
         if (product.id === actualProduct.id) {
-          return { ...product, items: totalItems, priceTotal: totalItems * actualProduct.price }
+          return { ...product, items:  totalItemOrder, priceTotal: totalItemOrder* actualProduct.price }
         } else {
           return product
         }
       })
-      const total = newOrder.reduce((sum, { items }) => sum + items, 0)
-      const result = newOrder.reduce((sum, { priceTotal }) => sum + priceTotal, 0)
-      this.setActualState({ ...this.cartState, actualProductsOrder: newOrder, items: total, subtotal: result.toFixed(2) },true)
-    }
+      this.totalItems = getCountItems( this.cartState.actualProductsOrder)
+      this.subtotal = getSubtotal( this.cartState.actualProductsOrder);
+      this.setActualState({ ...this.cartState, actualProductsOrder: newOrder, items: this.totalItems, subtotal:  this.subtotal.toFixed(2) },true)
   }
-
-  setIncrementOrder(id) {
-    let actualProduct = this.cartState.actualProductsOrder.filter(product => {
-      return Number(product.id) === Number(id)
-    })[0]
-    if (actualProduct.items >= 0) {
-      let totalItems = actualProduct.items + 1
-      const newOrder = this.cartState.actualProductsOrder.map((product) => {
-        if (product.id === actualProduct.id) {
-          console.log({ ...product, items: totalItems, priceTotal: totalItems * actualProduct.price })
-          return { ...product, items: totalItems, priceTotal: totalItems * actualProduct.price }
-        } else {
-          return product
-        }
-      })
-      const finalItems = newOrder.reduce((sum, { items }) => sum + items, 0);
-      const subtotal =  newOrder.reduce((sum, {priceTotal}) => sum + priceTotal, 0);
-      const diference =   Number(subtotal) - Number(this.cartState.totalCost) ;
-      const newTotal = Number(this.cartState.totalCost) + Number(diference)
-      console.log(Number(this.cartState.totalCost),Number(subtotal),newTotal, diference )
-      this.setActualState({ ...this.cartState, actualProductsOrder: newOrder, items: finalItems, subtotal: subtotal.toFixed(2),totalCost: newTotal.toFixed(2)},true)
-    }
-  }
+}
 
   onSubmitCheckout(summary) {
     this.finalSummary = new finalSummary(summary);
@@ -225,29 +218,30 @@ export default class ShoppingCart {
     ///events
     promoButton.onclick = () => {
       const promocode = inputPromo.value.trim();
-      console.log(promocode)
       this.onApplyPromo(promocode)
     }
     inputShipping.onchange = () => {
       const shippingValue = inputShipping.value.trim();
-      const shippingPlusPrice =  Number(this.cartState.subtotal) + Number(shippingValue)
-      this.setActualState({ ...this.cartState, shipping: shippingValue ,totalCost: shippingPlusPrice},true)
+      const shippingElement = document.getElementById('shippingSelect');
+      const label =shippingElement.options[shippingElement.selectedIndex].innerHTML;
+      console.log(label,shippingElement)
+      this.setActualState({ ...this.cartState, shipping: {label: label,value:shippingValue}},true)
     }
     formSummary.onsubmit = (event) => {
       event.preventDefault();
-      this.onSubmitCheckout();
+      this.onSubmitCheckout(this.cartState);
     }
     btnDecreColection.forEach((button) => button.onclick = () => {
       let attribute = button.getAttribute("data-origin");
-      this.setDecreaseItems(attribute)
+      this.calculateOrderStock(true,false,attribute)
     });
     btnIncreColection.forEach((button) => button.onclick = () => {
       let attribute = button.getAttribute("data-origin");
-      this.setIncrementOrder(attribute)
+      this.calculateOrderStock(false,true,attribute)
     });
   }
 
   init() {
-    this.renderCart();
+    this.renderCart()
   }
 }

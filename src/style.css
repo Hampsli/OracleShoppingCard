@@ -177,10 +177,16 @@ td{
   padding-left: 4rem;
   padding-right: 4rem;
 }
+.shoppingRecip-section{
+  background: white;
+}
 .colSummary{
   background: #f5f4f9;
   padding-left: 2rem;
   padding-right: 2rem;
+}
+.colRecip{
+  background: #f5f4f9;
 }
 .login-title {
   text-align: center;
@@ -282,6 +288,33 @@ td{
 
 .totalSummary{
   justify-content: space-between;
+}
+.headerRecip{
+  justify-content: space-between;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-bottom: 2px solid #aab0bc;
+}
+.recipContainer{
+  width: 100%;
+  text-align: center;
+}
+.recipSummarySection{
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  margin: 0 auto 100px;
+  text-align: center;
+  box-shadow: 1px 3px 16px 9px rgba(0, 0, 0, 0.2);
+  margin: 4rem;
+  padding-top:5rem ;
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
+.contentCenter{
+  justify-content: center;
+  align-items: center;
 }
 
 

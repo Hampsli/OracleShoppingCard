@@ -20,3 +20,17 @@ export const formatOrderProducts = (products)=>{
     }
     return []
 }
+
+export const getSubtotal = (orderItems) =>{
+    if(orderItems){
+        return (orderItems.reduce((sum, { priceTotal }) => sum + priceTotal, 0));
+    }
+    return 0
+}
+
+export const getCountItems = (orderItems) =>{
+    if(orderItems){
+        return  orderItems.reduce((sum, { items }) => sum + items, 0)
+    }
+    return 0
+}

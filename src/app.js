@@ -5,7 +5,7 @@ import rendershopping from './Containers/shoppingCart/index.js'
 export default class AppMain {
   constructor(state) {
     this.state = {
-      page: 'shopping'
+      page: 'login'
     }
     this.login = new renderLogin();
     this.shopping = new rendershopping();
