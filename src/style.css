@@ -1,0 +1,340 @@
+/* open-sans-regular - latin 
+source: https://google-webfonts-helper.herokuapp.com/fonts/open-sans?subsets=latin*/
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./utils/fonts/open-sans-v27-latin-regular.eot'); 
+  src: local(''),
+       url('./utils/fonts/open-sans-v27-latin-regular.eot?#iefix') format('embedded-opentype'),
+       url('./utils/fonts/open-sans-v27-latin-regular.woff2') format('woff2'), 
+       url('./utils/fonts/open-sans-v27-latin-regular.woff') format('woff'), 
+       url('./utils/fonts/open-sans-v27-latin-regular.ttf') format('truetype'), 
+       url('./utils/fonts/open-sans-v27-latin-regular.svg#OpenSans') format('svg'); 
+}
+body {
+  background: #e3e2e7;
+  width: 100%;
+  height: 100%;
+  font-family: "Open sans";
+}
+
+#loginSection {
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  max-width: 20rem;
+  min-height: 30rem;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 1px 3px 16px 9px rgba(0, 0, 0, 0.2);
+}
+
+.row {
+  display: flex;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.col {
+  display: block;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
+label {
+  top: 20px;
+  left: 12px;
+  font-size: 15px;
+  color: black;
+  font-weight: 500;
+  transform-origin: 0 0;
+  transform: translate3d(0, 0, 0);
+  transition: all 0.2s ease;
+  text-align: start;
+  margin-bottom: 1rem;
+}
+input {
+  appearance: none;
+  width: 100%;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid grey;
+  font-family: inherit;
+  padding: 8px 6px 0 6px;
+  height: 2rem;
+  font-size: 16px;
+  font-weight: 400;
+  background:  white;
+  color: black;
+  transition: all 0.15s ease;
+}
+:focus {
+  outline: none;
+}
+::placeholder {
+  font-size: 15px;
+}
+
+select{
+	width: 100%;
+	cursor: pointer;
+  padding: 8px 6px 0 0;
+  height: 3rem;
+  font-size: 16px;
+  font-weight: 400;
+  outline: 0; 
+  border: 0;
+  background:  white;
+  color: black;
+  font-family: inherit;
+  border-bottom: 1px solid grey;
+  transition: all 0.25s ease;
+}
+
+a{
+  font-size: 15px;
+  color: #aab0bc;
+  font-weight:bold;
+  text-decoration: none;
+}
+
+button{
+  appearance: none;
+  padding: 0.75rem 5.25rem;
+  font-family: inherit;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color:white;
+  cursor: pointer;
+  border: none;
+  font-weight:700; 
+  font-size: 15px;
+}
+
+ .btn-login{
+  border-radius: 30px;
+  width: 90%;
+  background:  linear-gradient(100deg, rgba(143,245,255,1) 0%, rgba(224,180,255,1) 50%, rgba(246,104,255,1) 100%);
+  border: 0.1px solid purple;
+  color: white;
+} 
+
+
+.btn-apply{
+  color:white;
+background-color: #df7e7b;
+padding: 0.75rem 2.25rem;
+}
+
+
+ .btn-check{
+  color:white;
+  background-color:#1d5dbc ;
+  width: 100%;
+}
+
+.btn-table{
+  margin: 0;
+  padding: 0.95rem 0.95rem;
+  font-size: 25px;
+  font-weight:800; 
+}
+
+.btn-back{
+  color: blue;
+}
+
+small{
+  color: red;
+}
+
+h1{
+  font-weight: 700;
+}
+
+table{
+  padding-left:15px; 
+  padding-right: 15px;
+}
+
+th{
+  text-align: center;
+  color:#cdcdcd;
+  width: 40rem;
+}
+
+td{
+  width: 40rem;
+  text-align: center;
+}  label{
+
+    padding-right: 1rem;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.inputSection {
+  text-align: start;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.container {
+  width: 100%;
+  padding: 8% 0 0;
+  margin: auto;
+}
+
+.shoppingCart-section{
+  background: white;
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+.shoppingRecip-section{
+  background: white;
+}
+.colSummary{
+  background: #f5f4f9;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.colRecip{
+  background: white;
+}
+.login-title {
+  text-align: center;
+  margin-top: 1rem;
+}
+.forgot-pass {
+  text-align: right;
+}
+
+.loginFooter{
+  margin-top: 5rem;
+}
+.cartSection{
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  margin: 0 auto 100px;
+  padding-left: 2rem;
+  text-align: center;
+  box-shadow: 1px 3px 16px 9px rgba(0, 0, 0, 0.2);
+  margin-left: 4rem;
+  margin-right: 4rem;
+}
+
+.detailProduct{
+  text-align: left;
+  display: flex;
+  width: 100%;
+}
+
+.headerCart{
+  justify-content: space-between;
+  border-bottom: 2px solid #aab0bc;
+}
+
+.quantityControls{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputQuantity{
+  width: 30%;
+  border: 1px solid #aab0bc;
+  text-align: center;
+}
+
+.removeProduct{
+ color:#cdcdcd;
+ padding: 0.95rem 0 ;
+ margin:0;
+ font-size: 10px;
+}
+
+.backButton{
+  text-align: left;
+  display: flex;
+  padding-bottom: 2rem;
+  margin-top:3rem;
+  margin-bottom:3rem;
+}  .fa-arrow-left{
+  margin-right: 1rem;
+  font-size: 18px;
+  font-weight:bold;
+  text-decoration: none;
+  color: blue;
+}
+
+.titleOrder{
+  text-align: left;
+  border-bottom: 2px solid #aab0bc;
+}
+
+.formContainer{
+  max-width: 25rem;
+  min-width: 25rem;
+} 
+.formContainer  select{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border: 2px solid  white;
+  height: 2.5rem;
+  width: 26rem;
+  border-radius: 2px;
+}
+.formContainer   input{
+  margin-top: 2rem;
+  border: 2px solid  white;
+  height: 2rem;
+  border-radius: 2px;
+}
+
+.subTotalSummary{
+  justify-content: space-between;
+  align-items: center;
+}
+
+.promoSection{
+  text-align: left;
+}
+
+.totalSummary{
+  justify-content: space-between;
+}
+.headerRecip{
+  justify-content: space-between;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-bottom: 2px solid #aab0bc;
+}
+.recipContainer{
+  width: 100%;
+  text-align: center;
+}
+.recipSummarySection{
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  margin: 0 auto 100px;
+  text-align: center;
+  box-shadow: 1px 3px 16px 9px rgba(0, 0, 0, 0.2);
+  margin: 4rem;
+  padding-top:5rem ;
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
+.contentCenter{
+  justify-content: center;
+  align-items: center;
+}
+
+
+
