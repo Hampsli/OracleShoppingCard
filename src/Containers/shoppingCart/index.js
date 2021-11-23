@@ -41,6 +41,8 @@ export default class ShoppingCart {
       this.subtotal = getSubtotal( this.cartState.actualProductsOrder);
       this.setActualState({...this.cartState,items:this.totalItems,subtotal:this.subtotal.toFixed(2)},true)
     }
+    let disabled =  Boolean(!this.cartState.actualProductsOrder?.length);
+
     this.root.innerHTML += `  
     <div class="row cartSection">
     <div class="col shoppingCart-section">
@@ -92,16 +94,18 @@ export default class ShoppingCart {
         <div class="inputSection">
           <label for='shippingSelect'>SHIPPING</label>
           <select name='shippingSelect' id='shippingSelect' required>
-            <option value="5" ${this.cartState.shipping === '5' ? 'selected' : ''}>Standard delivery - $5.00</option>
-            <option value="15"  ${this.cartState.shipping === '15' ? 'selected' : ''}>express delivery - $15.00</option>
+            <option value="5" ${this.cartState.shipping.value === '5' ? 'selected' : ''}>Standard delivery - $5.00</option>
+            <option value="15"  ${this.cartState.shipping.value === '15' ? 'selected' : ''}>express delivery - $15.00</option>
           </select>
         </div>
         <div class="inputSection">
           <label for='promoInput'>PROMO CODE</label>
-          <input type='text' id='promoInput' name='promoInput' value="${this.cartState.promoCode}">
+          <input ${this.cartState.promoCode ? 'disabled' : ''} type='text' id='promoInput' name='promoInput' value="${this.cartState.promoCode}">
+          <small></small>
+          <p ${this.cartState.promoCode ? '' : 'hidden'}>using promo code : ${this.cartState.promoCode}<p>
         </div>
         <div class='promoSection'>
-          <button type='button' id='promoAction' class='btn-apply'>APPLY</button>
+          <button ${this.cartState.promoCode ? 'hidden' : ''}   type='button' id='promoAction' class='btn-apply '>APPLY</button>
         </div>
         <hr>
         <div class='row totalSummary'>
@@ -113,7 +117,7 @@ export default class ShoppingCart {
           </div>
         </div>
         <div>
-          <button type='submit' id='checkout' class="btn-check" >CHECKOUT</button>
+          <button ${disabled ? 'disabled' : ''} type='submit' id='checkout' class="btn-check" >CHECKOUT</button>
         </div>
         <form>
         </div>
@@ -121,46 +125,59 @@ export default class ShoppingCart {
           </div>`
     var tableId = document.getElementById('pTable');
     this.bodyTable= tableId.getElementsByTagName("tbody")[0];
-    this.cartState.actualProductsOrder.forEach((product) => {
+    if( this.cartState.actualProductsOrder?.length > 0){
+      this.cartState.actualProductsOrder.forEach((product) => {
+        this.bodyTable.innerHTML += `
+         <tr class="centralRow">
+             <td >
+             <div class="detailProduct">
+             <div class="col">
+             <img src="${product.image}" width="60">
+             </div>
+             <div class="col">
+             <h5>${product.title}</h5>
+             <p>${product.category}</p>
+             <button type='button' class='removeProduct' name='removeProduct'>REMOVE</button>
+             </div>
+               </div>
+             </td>
+             <td >
+             <div class="quantityControls">
+               <button type='button' class='btn-table decreaseProduct' data-origin="${product.id}" name='decreaseProduct'>-</button>
+               <input disabled type="number" class="inputQuantity" id="${'items' + product.id}" name="totalItems" value="${product.items}">
+               <button type='button' class='btn-table incrementProduct' data-origin="${product.id}"  name='incrementProduct'>+</button>
+               </div>
+             </td>
+             <td>
+               <label>$${product.price}</label>
+             </td>
+             <td>
+               <label>$${product.priceTotal}</label>
+             </td>
+           </tr> 
+           `    })
+    }else{
       this.bodyTable.innerHTML += `
-       <tr class="centralRow">
-           <td >
-           <div class="detailProduct">
-           <div class="col">
-           <img src="${product.image}" width="60">
-           </div>
-           <div class="col">
-           <h5>${product.title}</h5>
-           <p>${product.category}</p>
-           <button type='button' class='removeProduct' name='removeProduct'>REMOVE</button>
-           </div>
-             </div>
-           </td>
-           <td >
-           <div class="quantityControls">
-             <button type='button' class='btn-table decreaseProduct' data-origin="${product.id}" name='decreaseProduct'>-</button>
-             <input disabled type="number" class="inputQuantity" id="${'items' + product.id}" name="totalItems" value="${product.items}">
-             <button type='button' class='btn-table incrementProduct' data-origin="${product.id}"  name='incrementProduct'>+</button>
-             </div>
-           </td>
-           <td>
-             <label>$${product.price}</label>
-           </td>
-           <td>
-             <label>$${product.priceTotal}</label>
-           </td>
-         </tr> 
-         `
-    })
+      <tr>
+        <td colspan="4"><h3 style='color:red'>products not found,please contact with sales team </h3></td>
+      </tr> 
+        `   
+    }
     this.handleEvents()
   }
 
   setActualState(state) {
+    let totalCost;
     if (state !== this.cartState) {
-      const totalCost =  Number(state.subtotal) + Number(state.shipping.value);
-      console.log(totalCost)
+      if(state.promoCode){
+        const discount = this.validDiscount.percentDiscount / 100;
+        const totalWithDiscount = Number(state.subtotal) - (Number(state.subtotal) * discount)
+        totalCost = Number(totalWithDiscount) + Number(state.shipping.value);
+      }
+      if(!state.promoCode){
+        totalCost =  Number(state.subtotal) + Number(state.shipping.value);
+      }
       this.cartState = Object.assign(this.cartState, {...state, totalCost: totalCost.toFixed(2)});
-      console.log('toGo',this.cartState )
       this.renderCart(this.cartState.actualProductsOrder)
     }
   }
@@ -189,7 +206,7 @@ export default class ShoppingCart {
       })
       this.totalItems = getCountItems( this.cartState.actualProductsOrder)
       this.subtotal = getSubtotal( this.cartState.actualProductsOrder);
-      this.setActualState({ ...this.cartState, actualProductsOrder: newOrder, items: this.totalItems, subtotal:  this.subtotal.toFixed(2) },true)
+      this.setActualState({ ...this.cartState, actualProductsOrder: newOrder, items: this.totalItems, subtotal:  this.subtotal.toFixed(2) })
   }
 }
 
@@ -198,11 +215,13 @@ export default class ShoppingCart {
     this.finalSummary.init();
   }
 
-  onApplyPromo(promoCode) {
+  onApplyPromo(promoCode,input) {
+    console.log(promoCode)
     if (promoCode === this.validDiscount.code) {
-      const discount = this.validDiscount.percentDiscount / 100;
-      const totalWithDiscount = this.cartState.subtotal - (this.cartState.subtotal * discount)
-      this.setActualState({ ...this.cartState, promoCode: promoCode, totalCost: totalWithDiscount.toFixed(2) },true)
+      this.setActualState({ ...this.cartState, promoCode: promoCode })
+    }else{
+      let errorMsg = input.parentNode.querySelector("small");
+      errorMsg.innerText = 'Invalid promo code'
     }
   }
 
@@ -216,16 +235,22 @@ export default class ShoppingCart {
     const btnDecreColection = [...decreButtons];
     const btnIncreColection = [...increButtons];
     ///events
+    inputPromo.onchange = () =>{
+      let errorMsg =  inputPromo.parentNode.querySelector("small");
+      errorMsg.innerText 
+      if(  errorMsg.innerText.length > 0){
+        errorMsg.innerText = ''
+      }
+    }
     promoButton.onclick = () => {
       const promocode = inputPromo.value.trim();
-      this.onApplyPromo(promocode)
+      this.onApplyPromo(promocode,inputPromo)
     }
     inputShipping.onchange = () => {
       const shippingValue = inputShipping.value.trim();
       const shippingElement = document.getElementById('shippingSelect');
       const label =shippingElement.options[shippingElement.selectedIndex].innerHTML;
-      console.log(label,shippingElement)
-      this.setActualState({ ...this.cartState, shipping: {label: label,value:shippingValue}},true)
+      this.setActualState({ ...this.cartState, shipping: {label: label,value:shippingValue}})
     }
     formSummary.onsubmit = (event) => {
       event.preventDefault();

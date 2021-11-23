@@ -7,9 +7,15 @@ export const removeAllChilds = (el) => {
   };
 
 export const getProducts = async() =>{
-    let data = await fetch('http://localhost/utils/products.json')
-    let products = await data.json();
-    return products 
+    try {
+        let data = await fetch('http://localhost/utils/products.json')
+        let products = await data.json();
+        return products 
+    } catch (error) {
+        console.log(error);
+        alert('Ups! we have a little problem, please contact with our sales team!');
+    }
+
 }
 
 export const formatOrderProducts = (products)=>{

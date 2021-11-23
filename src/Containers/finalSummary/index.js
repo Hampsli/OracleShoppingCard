@@ -20,11 +20,11 @@ export default class ShoppingCart {
       if (this.root.hasChildNodes()) {
         removeAllChilds(this.root);
       }
-      console.log(  this.cartState)
   
       this.root.innerHTML += `  
       <div class="recipSummarySection">
       <div class="shoppingRecip-section">
+      <h5>THANKYOU FOR YOUR ORDER!!<h5>
         <div class="row headerRecip">
           <div class="title">
             <h1>Shopping Cart</h1>
