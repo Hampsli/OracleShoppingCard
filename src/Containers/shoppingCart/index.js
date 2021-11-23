@@ -5,6 +5,8 @@ import {
   getSubtotal,
   getCountItems} from '../../utils/utils.js'
 import finalSummary from '../finalSummary/index.js';
+import "../../style.css";
+
 
 export default class ShoppingCart {
   constructor() {

@@ -1,6 +1,6 @@
 import renderLogin from './Containers/login/index.js'
 import rendershopping from './Containers/shoppingCart/index.js'
-
+import "./style.css";
 
 export default class AppMain {
   constructor(state) {

@@ -1,3 +1,4 @@
+import "../../style.css";
 
 export default class Login {
 

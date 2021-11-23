@@ -5,10 +5,11 @@ export const removeAllChilds = (el) => {
       }
     }
   };
+ 
 
 export const getProducts = async() =>{
     try {
-        let data = await fetch('./utils/products.json')
+        let data = await fetch('src/utils/products.json')
         let products = await data.json();
         return products 
     } catch (error) {

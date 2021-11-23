@@ -1,4 +1,5 @@
-import {removeAllChilds } from '../../utils/utils.js'
+import {removeAllChilds } from '../../utils/utils.js';
+import "../../style.css";
 
 export default class ShoppingCart {
     constructor(state) {
