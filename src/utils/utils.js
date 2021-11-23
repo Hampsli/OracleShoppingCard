@@ -8,8 +8,16 @@ export const removeAllChilds = (el) => {
  
 
 export const getProducts = async() =>{
+    let request = new Request('/products.json',{
+        method: 'GET',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        mode: 'cors',
+        cache:'default'
+    });
     try {
-        let data = await fetch('src/utils/products.json')
+        let data = await fetch( request)
         let products = await data.json();
         return products 
     } catch (error) {
